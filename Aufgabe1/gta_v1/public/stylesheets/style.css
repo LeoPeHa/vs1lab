@@ -46,8 +46,13 @@ a {
 
 /* ### TODO ### Styles for other HTML elements */
 
-/* ... your code here ... */
+section {
+  display: flex;
+}
 
+legend {
+  display: block;
+}
 
 /* Grid styles (no changes required) */
 
@@ -110,11 +115,18 @@ a {
 /* ### TODO ### Styles for Header Component */
 
 /* ... your code here ... */
+  header {
+    background-color: lightgray;
+    display: flex;
+  }
 
 
 /* ### TODO ### Styles for Main Component */
 
 /* ... your code here ... */
+main {
+  display: flex;
+}
 
 
 /* ### TODO ### Styles for Tagging component */
@@ -128,6 +140,9 @@ a {
 
 
 /* ### TODO ### Styles for Footer Component */
+footer {
+  background-color: gray;
+}
 
 /* ... your code here ... */
 
