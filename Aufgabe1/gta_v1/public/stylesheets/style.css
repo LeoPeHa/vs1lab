@@ -46,12 +46,41 @@ a {
 
 /* ### TODO ### Styles for other HTML elements */
 
-section {
+legend {
+  display: block;
+}
+
+label, input {
+  display: block;
+}
+
+h2 {
+  display: block;
+}
+
+*[class*='col'] {
+  margin: 0.49rem;
+}
+
+.discovery__search {
+  width: 100%;
+}
+
+.discovery__wrapper {
   display: flex;
 }
 
-legend {
+.discovery__taglist ul li {
+  list-style-type: none;
+  background-color: lightcoral;
+  margin-bottom: 0.5rem;
+  border: 1px solid var(--border-color);
+}
+
+.discovery__map img {
   display: block;
+  width: 100%;
+  height: auto;
 }
 
 /* Grid styles (no changes required) */
@@ -115,10 +144,20 @@ legend {
 /* ### TODO ### Styles for Header Component */
 
 /* ... your code here ... */
-  header {
-    background-color: lightgray;
-    display: flex;
-  }
+header {
+  display: grid;
+  grid-area: header;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: lightblue;
+  padding: 10px;
+}
+
+header img {
+  width: 40px;
+  margin-top: 10px;
+}
 
 
 /* ### TODO ### Styles for Main Component */
@@ -140,13 +179,24 @@ main {
 
 
 /* ### TODO ### Styles for Footer Component */
-footer {
-  background-color: gray;
-}
 
 /* ... your code here ... */
+footer {
+  background-color: lightblue;
+}
 
 
 /* ### TODO ### Media Queries */
 
 /* ... your code here ... */
+@media screen and (max-width: 850px) {
+    
+    .discovery__wrapper, main {
+      flex-direction: column;
+    }
+
+    *[class*='col'] {
+      width: calc(100% - 1rem);
+    }
+
+}
