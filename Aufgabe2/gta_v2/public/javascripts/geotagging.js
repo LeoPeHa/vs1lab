@@ -63,7 +63,7 @@ class LocationHelper {
  * A class to help using the MapQuest map service.
  */
 class MapManager {
-    #apiKey = 'jTGAw5xtpzLEiMWObzXknsZZjViFuEwj';
+    #apiKey = '';
 
     /**
      * Create a new MapManager instance.
@@ -103,19 +103,17 @@ class MapManager {
  * It is called once the page has been fully loaded.
  */
 function updateLocation() {
-    LocationHelper.findLocation(convertLocation);
+    LocationHelper.findLocation(convertLocation());
 }
 
 function convertLocation(helper) {
-    let newLatitude = 1;//helper.latitude();
-    let newLongitude = 1;//helper.longitude();
+    let newLatitude = helper.latitude();
+    let newLongitude = helper.longitude();
     updateLabels("latitude", newLatitude);
     updateLabels("longitude", newLongitude);
     updateLabels("discoverLatitude", newLatitude);
     updateLabels("discoverLongitude", newLongitude);
-    alert("Baum");
-    let manager = new MapManager();
-    alert(manager.getMapUrl(newLatitude, newLongitude));
+    let manager = new MapManager('jTGAw5xtpzLEiMWObzXknsZZjViFuEwj');
     document.getElementById("mapView").src = manager.getMapUrl(newLatitude, newLongitude);
 }
 
