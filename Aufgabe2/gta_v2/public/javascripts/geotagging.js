@@ -52,6 +52,8 @@ class LocationHelper {
             helper.#latitude = location.coords.latitude.toFixed(5);
             helper.#longitude = location.coords.longitude.toFixed(5);
             // Pass the locationHelper object to the callback.
+            alert("Callback");
+            alert(helper.latitude);
             callback(helper);
         }, (error) => {
             alert(error.message)
@@ -103,12 +105,12 @@ class MapManager {
  * It is called once the page has been fully loaded.
  */
 function updateLocation() {
-    LocationHelper.findLocation(convertLocation());
+    LocationHelper.findLocation(convertLocation);
 }
 
 function convertLocation(helper) {
-    let newLatitude = helper.latitude();
-    let newLongitude = helper.longitude();
+    let newLatitude = helper.latitude;
+    let newLongitude = helper.longitude;
     updateLabels("latitude", newLatitude);
     updateLabels("longitude", newLongitude);
     updateLabels("discoverLatitude", newLatitude);
