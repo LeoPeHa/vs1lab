@@ -46,7 +46,7 @@ a {
 
 /* ### TODO ### Styles for other HTML elements */
 
-fieldset, input, .discovery__results li {
+fieldset, input, .discovery__results li, footer {
   padding: 0.5em;
 }
 
