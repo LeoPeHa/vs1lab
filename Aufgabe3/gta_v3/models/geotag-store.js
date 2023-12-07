@@ -25,6 +25,65 @@
  */
 class InMemoryGeoTagStore{
 
+    #geoTagArray;
+
+    constructor() {
+
+    }
+
+    addGeoTag(geoTag) {
+        this.#geoTagArray.push(geoTag);
+    }
+
+    removeGeoTag(name) {
+        let index = name.indexOf(name);
+        geoTagArray = geoTagArray.splice(index, 1);
+    }
+
+    searchNearbyGeoTags(location, searchTerm) {
+        
+        let radius = 0.1;
+        let paramLatitude = location[0];
+        let paramLongitude = location[1];
+        let term = searchTerm;
+        let returnArray;
+        
+        for (i = 0; i < geoTagArray.length; i++) {
+            let arrayElementLatitude = geoTagArray[i].latitude;
+            let arrayElementLongitude = geoTagArray[i].longitude;
+            let arrayElementName = geoTagArray[i].name;
+            let arrayElementTag = geoTagArray[i].hashtag;
+            let distance = Math.sqrt((arrayElementLongitude - paramLongitude)*(arrayElementLongitude - paramLongitude) + (arrayElementLatitude - paramLatitude)*(arrayElementLatitude - paramLatitude))
+            if ((distance < radius) && (arrayElementName.includes(term) || arrayElementTag.includes(term))) {
+                returnArray.push(geoTagArray[i]);
+            }
+        }
+        return returnArray;
+
+    }
+
+    getNearbyGeoTags(location) {
+        
+        let radius = 0.1;
+        let paramLatitude = location[0];
+        let paramLongitude = location[1];
+        let returnArray;
+        
+        for (i = 0; i < geoTagArray.length; i++) {
+            let arrayElementLatitude = geoTagArray[i].latitude;
+            let arrayElementLongitude = geoTagArray[i].longitude;
+            let distance = Math.sqrt((arrayElementLongitude - paramLongitude)*(arrayElementLongitude - paramLongitude) + (arrayElementLatitude - paramLatitude)*(arrayElementLatitude - paramLatitude))
+            if (distance < radius) {
+                returnArray.push(geoTagArray[i]);
+            }
+        }
+        return returnArray;
+
+    }
+
+    searchNearbyGeoTags() {
+
+    }
     // TODO: ... your code here ...
 
 }

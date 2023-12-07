@@ -30,6 +30,16 @@ class GeoTagExamples {
             ['Building K', 49.013190, 8.392090, '#campus'],
         ];
     }
+
+    static populate() {
+        let tagList = tagList();
+        let geoTagStorage = new InMemoryGeoTagStore();
+
+        for (i = 0; i < tagList.length(); i++) {
+            let geoTag = new geoTag(tagList[0], tagList[1], tagList[2], tagList[3]);
+            geoTagStorage.addGeoTag(geoTag);
+        }
+    }
 }
 
 module.exports = GeoTagExamples;
