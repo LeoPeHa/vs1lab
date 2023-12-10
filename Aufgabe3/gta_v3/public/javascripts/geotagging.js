@@ -28,8 +28,8 @@ function convertLocation(helper) {
     updateLabels("discoverLatitude", newLatitude);
     updateLabels("discoverLongitude", newLongitude);
     let manager = new MapManager('jTGAw5xtpzLEiMWObzXknsZZjViFuEwj');
-    document.getElementById("mapView").src = manager.getMapUrl(newLatitude, newLongitude);
-    document.getElementById("mapView").dataset.geotag = newLatitude;
+    let taglist_json = JSON.parse(document.getElementById("mapView").dataset.tags);
+    document.getElementById("mapView").src = manager.getMapUrl(newLatitude, newLongitude, taglist_json);
 }
 
 function updateLabels(id, value) {
