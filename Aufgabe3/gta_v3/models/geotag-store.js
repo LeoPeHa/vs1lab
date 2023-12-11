@@ -28,7 +28,7 @@ class InMemoryGeoTagStore{
     #geoTagArray;
 
     constructor() {
-
+        this.#geoTags = [];
     }
 
     addGeoTag(geoTag) {
@@ -69,7 +69,7 @@ class InMemoryGeoTagStore{
         let paramLongitude = location[1];
         let returnArray;
         
-        for (i = 0; i < geoTagArray.length; i++) {
+        for (let i = 0; i < geoTagArray.length; i++) {
             let arrayElementLatitude = geoTagArray[i].latitude;
             let arrayElementLongitude = geoTagArray[i].longitude;
             let distance = Math.sqrt((arrayElementLongitude - paramLongitude)*(arrayElementLongitude - paramLongitude) + (arrayElementLatitude - paramLatitude)*(arrayElementLatitude - paramLatitude))
@@ -80,12 +80,6 @@ class InMemoryGeoTagStore{
         return returnArray;
 
     }
-
-    searchNearbyGeoTags() {
-
-    }
-    // TODO: ... your code here ...
-
 }
 
 module.exports = InMemoryGeoTagStore
