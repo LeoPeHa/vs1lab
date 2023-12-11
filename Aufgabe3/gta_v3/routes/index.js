@@ -62,7 +62,7 @@ router.get('/', (req, res) => {
  */
 
 // TODO: ... your code here ...
-router.post('/', (req, res) => {
+router.post('/tagging', (req, res) => {
   let {tagName, latitude, longitude, hashtag} = req.body;
 
   parsedLatitude = parseFloat(latitude);
@@ -94,13 +94,14 @@ router.post('/', (req, res) => {
  */
 
 // TODO: ... your code here ...
-router.get('/', (req, res) => {
-  let { searchTerm, latitudeSearch, longitudeSearch} = req.body;
+router.post('/discovery', (req, res) => {
+  console.log(req.body);
+  let { searchTerm, discoverLatitude, discoverLongitude} = req.body;
 
-  const newTag = new GeoTag( searchTerm, latitudeSearch, longitudeSearch)
+  const newTag = new GeoTag( searchTerm, discoverLatitude, discoverLongitude)
   console.log(req.body)
-  let results = GeoTagStore.searchNearbyGeoTags(newTag, searchTerm)
-  res.render('index', { taglist: results , latitude : latitudeSearch, longitude: longitudeSearch})
+  let results = geoTagStore.searchNearbyGeoTags(newTag, searchTerm)
+  res.render('index', { taglist: results , latitude : discoverLatitude, longitude: discoverLongitude})
 });
 
 module.exports = router;

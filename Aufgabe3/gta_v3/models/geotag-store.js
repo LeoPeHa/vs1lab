@@ -48,7 +48,7 @@ class InMemoryGeoTagStore {
         let term = searchTerm;
         let returnArray;
         
-        for (i = 0; i < this.#geoTagArray.length; i++) {
+        for (let i = 0; i < this.#geoTagArray.length; i++) {
             let arrayElementLatitude = geoTagArray[i].latitude;
             let arrayElementLongitude = geoTagArray[i].longitude;
             let arrayElementName = geoTagArray[i].name;
