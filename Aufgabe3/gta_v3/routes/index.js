@@ -30,6 +30,7 @@ const GeoTag = require('../models/geotag');
  */
 // eslint-disable-next-line no-unused-vars
 const GeoTagStore = require('../models/geotag-store');
+let geoTagStore = new GeoTagStore();
 
 /**
  * Route '/' for HTTP 'GET' requests.
@@ -66,10 +67,12 @@ router.post('/', (req, res) => {
 
   parsedLatitude = parseFloat(latitude);
   parsedLongitude = parseFloat(longitude);
-  const newTag = new GeoTag(tagName, parsedLatitude, parsedLongitude, hashtag)
-  GeoTagStore.addGeoTag(newTag)
+  const newTag = new GeoTag(tagName, parsedLatitude, parsedLongitude, hashtag);
+  geoTagStore.addGeoTag(newTag);
 
-  let taglist = GeoTagStore.getNearbyGeoTags(newTag)
+  let taglist = geoTagStore.getNearbyGeoTags(newTag);
+  console.log("Test");
+  console.log(taglist);
   taglist.forEach( tag => console.log(tag.toString()));
   res.render('index', { taglist : taglist, parsedLatitude, parsedLongitude})
 });

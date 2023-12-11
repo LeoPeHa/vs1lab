@@ -15,7 +15,7 @@ console.log("The geoTagging script is going to start...");
  * It is called once the page has been fully loaded.
  */
 function updateLocation() {
-    if (document.getElementById("Latitude").value == "" || document.getElementById("Longitude").value == "") {
+    if (document.getElementById("latitude").value == "" || document.getElementById("longitude").value == "") {
         LocationHelper.findLocation(convertLocation);
     }
 }

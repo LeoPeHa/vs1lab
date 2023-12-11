@@ -23,12 +23,12 @@
  * - The proximity constrained is the same as for 'getNearbyGeoTags'.
  * - Keyword matching should include partial matches from name or hashtag fields. 
  */
-class InMemoryGeoTagStore{
+class InMemoryGeoTagStore {
 
     #geoTagArray;
 
     constructor() {
-        this.geoTagArray = [];
+        this.#geoTagArray = [];
     }
 
     addGeoTag(geoTag) {
@@ -37,7 +37,7 @@ class InMemoryGeoTagStore{
 
     removeGeoTag(name) {
         let index = name.indexOf(name);
-        geoTagArray = geoTagArray.splice(index, 1);
+        this.#geoTagArray = geoTagArray.splice(index, 1);
     }
 
     searchNearbyGeoTags(location, searchTerm) {
@@ -48,7 +48,7 @@ class InMemoryGeoTagStore{
         let term = searchTerm;
         let returnArray;
         
-        for (i = 0; i < geoTagArray.length; i++) {
+        for (i = 0; i < this.#geoTagArray.length; i++) {
             let arrayElementLatitude = geoTagArray[i].latitude;
             let arrayElementLongitude = geoTagArray[i].longitude;
             let arrayElementName = geoTagArray[i].name;
@@ -67,14 +67,14 @@ class InMemoryGeoTagStore{
         let radius = 0.1;
         let paramLatitude = location[0];
         let paramLongitude = location[1];
-        let returnArray;
+        let returnArray = [];
         
-        for (let i = 0; i < geoTagArray.length; i++) {
-            let arrayElementLatitude = geoTagArray[i].latitude;
-            let arrayElementLongitude = geoTagArray[i].longitude;
+        for (let i = 0; i < this.#geoTagArray.length; i++) {
+            let arrayElementLatitude = this.#geoTagArray[i].latitude;
+            let arrayElementLongitude = this.#geoTagArray[i].longitude;
             let distance = Math.sqrt((arrayElementLongitude - paramLongitude)*(arrayElementLongitude - paramLongitude) + (arrayElementLatitude - paramLatitude)*(arrayElementLatitude - paramLatitude))
             if (distance < radius) {
-                returnArray.push(geoTagArray[i]);
+                returnArray.push(this.#geoTagArray[i]);
             }
         }
         return returnArray;
