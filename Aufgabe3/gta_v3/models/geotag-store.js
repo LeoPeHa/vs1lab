@@ -28,7 +28,7 @@ class InMemoryGeoTagStore{
     #geoTagArray;
 
     constructor() {
-        this.#geoTags = [];
+        this.geoTagArray = [];
     }
 
     addGeoTag(geoTag) {
