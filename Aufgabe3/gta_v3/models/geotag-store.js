@@ -31,31 +31,51 @@ class InMemoryGeoTagStore {
         this.#geoTagArray = [];
     }
 
+    populate() {
+
+        const GeoTagExamples = require('./geotag-examples');
+        const GeoTag = require('./geotag');
+        let tagList = GeoTagExamples.tagList;
+
+        for (let i = 0; i < tagList.length; i++) {
+            let newTag = new GeoTag(tagList[i][0], tagList[i][1], tagList[i][2], tagList[i][3]);
+            this.addGeoTag(newTag);
+        }
+    }
+
     addGeoTag(geoTag) {
         this.#geoTagArray.push(geoTag);
+        console.log("Es wude geoTag hinzugefügt:");
+        console.log(geoTag);
     }
 
     removeGeoTag(name) {
         let index = name.indexOf(name);
         this.#geoTagArray = geoTagArray.splice(index, 1);
+        console.log("Es wude geoTag entfernt:");
+        console.log(name);
     }
 
-    searchNearbyGeoTags(location, searchTerm) {
+    searchNearbyGeoTags(geoTag, searchTerm) {
         
-        let radius = 0.1;
-        let paramLatitude = location[0];
-        let paramLongitude = location[1];
+        console.log("Start der Suche für:")
+        console.log(geoTag);
+        console.log(searchTerm);
+
+        let radius = 0.5;
+        let paramLatitude = geoTag.latitude;
+        let paramLongitude = geoTag.longitude;
         let term = searchTerm;
-        let returnArray;
+        let returnArray = [];
         
         for (let i = 0; i < this.#geoTagArray.length; i++) {
-            let arrayElementLatitude = geoTagArray[i].latitude;
-            let arrayElementLongitude = geoTagArray[i].longitude;
-            let arrayElementName = geoTagArray[i].name;
-            let arrayElementTag = geoTagArray[i].hashtag;
+            let arrayElementLatitude = this.#geoTagArray[i].latitude;
+            let arrayElementLongitude = this.#geoTagArray[i].longitude;
+            let arrayElementName = this.#geoTagArray[i].name;
+            let arrayElementTag = this.#geoTagArray[i].hashtag;
             let distance = Math.sqrt((arrayElementLongitude - paramLongitude)*(arrayElementLongitude - paramLongitude) + (arrayElementLatitude - paramLatitude)*(arrayElementLatitude - paramLatitude))
             if ((distance < radius) && (arrayElementName.includes(term) || arrayElementTag.includes(term))) {
-                returnArray.push(geoTagArray[i]);
+                returnArray.push(this.#geoTagArray[i]);
             }
         }
         return returnArray;
