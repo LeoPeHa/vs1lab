@@ -45,22 +45,14 @@ class InMemoryGeoTagStore {
 
     addGeoTag(geoTag) {
         this.#geoTagArray.push(geoTag);
-        console.log("Es wude geoTag hinzugefügt:");
-        console.log(geoTag);
     }
 
     removeGeoTag(name) {
         let index = name.indexOf(name);
         this.#geoTagArray = geoTagArray.splice(index, 1);
-        console.log("Es wude geoTag entfernt:");
-        console.log(name);
     }
 
     searchNearbyGeoTags(geoTag, searchTerm) {
-        
-        console.log("Start der Suche für:")
-        console.log(geoTag);
-        console.log(searchTerm);
 
         let radius = 0.5;
         let paramLatitude = geoTag.latitude;
