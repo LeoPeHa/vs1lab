@@ -64,16 +64,14 @@ router.get('/', (req, res) => {
 
 // TODO: ... your code here ...
 router.post('/tagging', (req, res) => {
-  let {tagName, latitude, longitude, hashtag} = req.body;
+  let {name, latitude, longitude, hashtag} = req.body;
 
   parsedLatitude = parseFloat(latitude);
   parsedLongitude = parseFloat(longitude);
-  const newTag = new GeoTag(tagName, parsedLatitude, parsedLongitude, hashtag);
+  const newTag = new GeoTag(name, parsedLatitude, parsedLongitude, hashtag);
   geoTagStore.addGeoTag(newTag);
 
   const taglist = geoTagStore.getNearbyGeoTags(newTag);
-  console.log("tagging is called");
-  console.log(taglist);
   taglist.forEach( tag => console.log(tag.toString()));
   res.render('index', { taglist : taglist, parsedLatitude, parsedLongitude})
 });
@@ -96,16 +94,10 @@ router.post('/tagging', (req, res) => {
 
 // TODO: ... your code here ...
 router.post('/discovery', (req, res) => {
-  console.log("Übergebener Body:")
-  console.log(req.body);
   let searchTerm = req.body.searchterm;
   let discoverLatitude = req.body.latitude;
   let discoverLongitude = req.body.longitude;
   const newTag = new GeoTag(searchTerm, discoverLatitude, discoverLongitude, "#");
-  console.log("Neuer Tag:")
-  console.log(newTag);
-  console.log("Suchergebnis: ");
-  console.log(geoTagStore.searchNearbyGeoTags(newTag, searchTerm));
   const results = geoTagStore.searchNearbyGeoTags(newTag, searchTerm);
   res.render('index', { taglist: results , latitude : discoverLatitude, longitude: discoverLongitude})
 });
