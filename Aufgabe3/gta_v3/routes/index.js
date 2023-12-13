@@ -31,6 +31,7 @@ const GeoTag = require('../models/geotag');
 // eslint-disable-next-line no-unused-vars
 const GeoTagStore = require('../models/geotag-store');
 let geoTagStore = new GeoTagStore();
+geoTagStore.populate();
 
 /**
  * Route '/' for HTTP 'GET' requests.
@@ -43,7 +44,7 @@ let geoTagStore = new GeoTagStore();
 
 // TODO: extend the following route example if necessary
 router.get('/', (req, res) => {
-  res.render('index', { taglist: [] })
+  res.render('index', { taglist: [] });
 });
 
 /**
@@ -70,7 +71,7 @@ router.post('/tagging', (req, res) => {
   const newTag = new GeoTag(tagName, parsedLatitude, parsedLongitude, hashtag);
   geoTagStore.addGeoTag(newTag);
 
-  let taglist = geoTagStore.getNearbyGeoTags(newTag);
+  const taglist = geoTagStore.getNearbyGeoTags(newTag);
   console.log("tagging is called");
   console.log(taglist);
   taglist.forEach( tag => console.log(tag.toString()));
@@ -95,14 +96,17 @@ router.post('/tagging', (req, res) => {
 
 // TODO: ... your code here ...
 router.post('/discovery', (req, res) => {
+  console.log("Übergebener Body:")
   console.log(req.body);
   let searchTerm = req.body.searchterm;
   let discoverLatitude = req.body.latitude;
   let discoverLongitude = req.body.longitude;
-  const newTag = new GeoTag(searchTerm, discoverLatitude, discoverLongitude);
+  const newTag = new GeoTag(searchTerm, discoverLatitude, discoverLongitude, "#");
+  console.log("Neuer Tag:")
   console.log(newTag);
-  let results = geoTagStore.searchNearbyGeoTags(newTag, searchTerm);
-  console.log(results);
+  console.log("Suchergebnis: ");
+  console.log(geoTagStore.searchNearbyGeoTags(newTag, searchTerm));
+  const results = geoTagStore.searchNearbyGeoTags(newTag, searchTerm);
   res.render('index', { taglist: results , latitude : discoverLatitude, longitude: discoverLongitude})
 });
 
