@@ -44,7 +44,7 @@ geoTagStore.populate();
 
 // TODO: extend the following route example if necessary
 router.get('/', (req, res) => {
-  res.render('index', { taglist: [] });
+  res.render('index', { taglist: [] , latitude: "", longitude: ""});
 });
 
 /**
@@ -73,7 +73,7 @@ router.post('/tagging', (req, res) => {
 
   const taglist = geoTagStore.getNearbyGeoTags(newTag);
   taglist.forEach( tag => console.log(tag.toString()));
-  res.render('index', { taglist : taglist, parsedLatitude, parsedLongitude})
+  res.render('index', { taglist : taglist, latitude: parsedLatitude, longitude: parsedLongitude})
 });
 
 /**

@@ -23,6 +23,12 @@
  * - The proximity constrained is the same as for 'getNearbyGeoTags'.
  * - Keyword matching should include partial matches from name or hashtag fields. 
  */
+
+
+const GeoTag = require('./geotag');
+const GeoTagExamples = require('./geotag-examples');
+
+
 class InMemoryGeoTagStore {
 
     #geoTagArray;
@@ -33,8 +39,6 @@ class InMemoryGeoTagStore {
 
     populate() {
 
-        const GeoTagExamples = require('./geotag-examples');
-        const GeoTag = require('./geotag');
         let tagList = GeoTagExamples.tagList;
 
         for (let i = 0; i < tagList.length; i++) {
