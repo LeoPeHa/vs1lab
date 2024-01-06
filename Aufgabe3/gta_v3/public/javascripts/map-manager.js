@@ -24,8 +24,6 @@ class MapManager {
      * @returns {string} URL of generated map
      */
     getMapUrl(latitude, longitude, tags, zoom = 11) {
-        //console.log("getMapUrl is called");
-        //console.log(tags);
         if (!this.#apiKey) {
             console.log("No API key provided.");
             return "images/mapview.jpg";
