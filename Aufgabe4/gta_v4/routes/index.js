@@ -45,7 +45,7 @@ router.get('/', (req, res) => {
 });
 
 /**
- * Old functions for testing
+ * Old functions
  */
 router.post('/tagging', (req, res) => {
   let {name, latitude, longitude, hashtag} = req.body;
@@ -125,7 +125,7 @@ router.post('/api/geotags', (req, res) => {
   
   let id = geoTagStore.addGeoTag(new GeoTag(name, latitude, longitude, hashtag));
   
-  res.set('Location', `/api/geotags/${id}`);
+  res.setHeader('Location', `/api/geotags/${id}`);
   res.sendStatus(201);
 });
 

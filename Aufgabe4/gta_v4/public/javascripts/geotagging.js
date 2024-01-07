@@ -20,6 +20,10 @@ function updateLocation() {
     }
 }
 
+function updateDepiction() {
+    LocationHelper.findLocation(convertLocation);
+}
+
 function convertLocation(helper) {
     let newLatitude = helper.latitude;
     let newLongitude = helper.longitude;
@@ -28,9 +32,11 @@ function convertLocation(helper) {
     updateLabels("discoverLatitude", newLatitude);
     updateLabels("discoverLongitude", newLongitude);
     let manager = new MapManager('jTGAw5xtpzLEiMWObzXknsZZjViFuEwj');
-    //console.log(document.getElementById("mapView").dataset.tags);
     let taglist_json = JSON.parse(document.getElementById("mapView").dataset.tags);
     document.getElementById("mapView").src = manager.getMapUrl(newLatitude, newLongitude, taglist_json);
+    let resultList = "";
+    taglist_json.forEach((element) => resultList += "<li>" + element.name + " (" + element.latitude + "," + element.longitude + ") " + element.hashtag + "</li>");
+    document.getElementById("discoveryResults").innerHTML = resultList;
 }
 
 function updateLabels(id, value) {
@@ -38,6 +44,8 @@ function updateLabels(id, value) {
     document.getElementById(id).setAttribute("placeholder", value);
 }
 
+
+// AJAX functions
 async function handleTagging(submitEvent) {
     submitEvent.preventDefault();
     
@@ -54,6 +62,7 @@ async function handleTagging(submitEvent) {
             hashtag : document.getElementById('hashtag').value
         })
     });
+    updateDepiction();
 }
 
 async function handleDiscover(submitEvent) {
@@ -74,7 +83,7 @@ async function handleDiscover(submitEvent) {
 
     const mapView = document.getElementById("mapView");
     mapView.setAttribute("data-tags", JSON.stringify(responseBody));
-    updateLocation();
+    updateDepiction();
 }
 
 // Wait for the page to fully load its DOM content, then call updateLocation
