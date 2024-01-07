@@ -32,9 +32,11 @@ const GeoTagExamples = require('./geotag-examples');
 class InMemoryGeoTagStore {
 
     #geoTagArray;
+    #Id;
 
     constructor() {
         this.#geoTagArray = [];
+        this.#Id = 0;
     }
 
     populate() {
@@ -48,12 +50,84 @@ class InMemoryGeoTagStore {
     }
 
     addGeoTag(geoTag) {
+        geoTag.id = this.#Id;
         this.#geoTagArray.push(geoTag);
+        this.#Id++;
+        return (this.#Id - 1);
     }
 
     removeGeoTag(name) {
         let index = name.indexOf(name);
-        this.#geoTagArray = geoTagArray.splice(index, 1);
+        this.#geoTagArray = this.#geoTagArray.splice(index, 1);
+    }
+
+    replaceGeoTag(id, geoTag) {
+
+        let isFound = 0;
+        
+        for (let i = 0; i < this.#geoTagArray.length; i++) {
+            if (this.#geoTagArray[i].id = id) {
+                this.#geoTagArray[i] = geoTag;
+                isFound = 1;
+            }
+        }
+
+        if (isFound == 0) {
+            newTag = geoTag;
+            newTag.id = id;
+            this.addGeoTag(newTag);
+        }
+    }
+
+    returnGeotags() {
+        if (this.#geoTagArray.length === 0) {
+            this.#geoTagArray.populate;
+            let returnArray = this.#geoTagArray;
+            return returnArray;
+        } else {
+            let returnArray = this.#geoTagArray;
+            return returnArray;
+        }
+    }
+
+    searchGeoTags(searchTerm) {
+
+        const term = searchTerm;
+        let returnArray = [];
+        
+        for (let i = 0; i < this.#geoTagArray.length; i++) {
+            
+            let arrayElementName = this.#geoTagArray[i].name;
+            let arrayElementTag = this.#geoTagArray[i].hashtag;
+            
+            if (arrayElementName.includes(term) || arrayElementTag.includes(term)) {
+                returnArray.push(this.#geoTagArray[i]);
+            }
+        }
+        return returnArray;
+
+    }
+
+    searchGeoTagsAroundLocation(searchTerm, latitude, longitude) {
+
+        let radius = 0.5;
+        let paramLatitude = latitude;
+        let paramLongitude = longitude;
+        let term = searchTerm;
+        let returnArray = [];
+        
+        for (let i = 0; i < this.#geoTagArray.length; i++) {
+            let arrayElementLatitude = this.#geoTagArray[i].latitude;
+            let arrayElementLongitude = this.#geoTagArray[i].longitude;
+            let arrayElementName = this.#geoTagArray[i].name;
+            let arrayElementTag = this.#geoTagArray[i].hashtag;
+            let distance = Math.sqrt((arrayElementLongitude - paramLongitude)*(arrayElementLongitude - paramLongitude) + (arrayElementLatitude - paramLatitude)*(arrayElementLatitude - paramLatitude))
+            if ((distance < radius) && (arrayElementName.includes(term) || arrayElementTag.includes(term))) {
+                returnArray.push(this.#geoTagArray[i]);
+            }
+        }
+        return returnArray;
+
     }
 
     searchNearbyGeoTags(geoTag, searchTerm) {
@@ -95,6 +169,19 @@ class InMemoryGeoTagStore {
         }
         return returnArray;
 
+    }
+
+    getGeoTagById(id) {
+        
+        const idLookedFor = id;
+        
+        for (let i = 0; i < this.#geoTagArray.length; i++) {
+            if (this.#geoTagArray[i].id = idLookedFor) {
+                return this.#geoTagArray[i];
+            }
+        }
+
+        return "";
     }
 }
 

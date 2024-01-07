@@ -38,8 +38,49 @@ function updateLabels(id, value) {
     document.getElementById(id).setAttribute("placeholder", value);
 }
 
+async function handleTagging(submitEvent) {
+    submitEvent.preventDefault();
+    
+    await fetch("/api/geotags", {
+        method : "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+            name : document.getElementById('name').value,
+            latitude : document.getElementById('latitude').value,
+            longitude : document.getElementById('longitude').value,
+            hashtag : document.getElementById('hashtag').value
+        })
+    });
+}
+
+async function handleDiscover(submitEvent) {
+    submitEvent.preventDefault();
+
+    const latitude = document.getElementById('discoverLatitude').value;
+    const longitude = document.getElementById('discoverLongitude').value;
+    const query = document.getElementById('searchTerm').value;
+
+    let url = `/api/geotags?latitude=${latitude}&longitude=${longitude}`;
+
+    if (query != "") {
+        url += `&searchTerm=${encodeURIComponent(query)}`;
+    }
+
+    const response = await fetch(url);
+    const responseBody = await response.json();
+
+    const mapView = document.getElementById("mapView");
+    mapView.setAttribute("data-tags", JSON.stringify(responseBody));
+    updateLocation();
+}
+
 // Wait for the page to fully load its DOM content, then call updateLocation
 document.addEventListener("DOMContentLoaded", () => {
     //alert("Please change the script 'geotagging.js'");
     updateLocation();
+    document.getElementById("tag-form").addEventListener("submit", handleTagging);
+    document.getElementById("discoveryFilterForm").addEventListener("submit", handleDiscover);
 });
