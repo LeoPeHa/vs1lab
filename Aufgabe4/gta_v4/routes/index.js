@@ -84,7 +84,8 @@ router.post('/discovery', (req, res) => {
  */
 
 router.get('/api/geotags', (req, res) => {
-    const searchTerm = req.body.searchterm;
+    const searchTerm = req.body.searchTerm;
+    console.log(searchTerm)
     const discoverLatitude = req.body.latitude;
     const discoverLongitude = req.body.longitude;
 

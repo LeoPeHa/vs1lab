@@ -33,7 +33,9 @@ function convertLocation(helper) {
     updateLabels("discoverLongitude", newLongitude);
     let manager = new MapManager('jTGAw5xtpzLEiMWObzXknsZZjViFuEwj');
     let taglist_json = JSON.parse(document.getElementById("mapView").dataset.tags);
+    
     document.getElementById("mapView").src = manager.getMapUrl(newLatitude, newLongitude, taglist_json);
+    console.log(taglist_json);
     let resultList = "";
     taglist_json.forEach((element) => resultList += "<li>" + element.name + " (" + element.latitude + "," + element.longitude + ") " + element.hashtag + "</li>");
     document.getElementById("discoveryResults").innerHTML = resultList;
