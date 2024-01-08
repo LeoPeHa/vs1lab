@@ -163,14 +163,14 @@ router.get('/api/geotags/:id', (req, res) => {
  * The updated resource is rendered as JSON in the response. 
  */
 
-router.put('/api/geotags:id', (req, res) => {
+router.put('/api/geotags/:id', (req, res) => {
   const id = req.params.id;
   const latitude = parseFloat(req.body.latitude);
   const longitude = parseFloat(req.body.longitude);
   const name = req.body.name;
   const hashtag = req.body.hashtag;
 
-  let geoTag = geoTagStore.replaceGeoTag(id, new GeoTag(name, latitude, longitude, hashtag));
+  let geoTag = geoTagStore.replaceGeoTag(id, new GeoTag(name, latitude, longitude, hashtag, id));
   res.json(geoTag);
 
 });
@@ -189,10 +189,10 @@ router.put('/api/geotags:id', (req, res) => {
 
 router.delete('/api/geotags/:id', (req, res) => {
   const id = req.params.id;
+  console.log("req.params.id: " + req.params.id)
   
   let geoTag = geoTagStore.getGeoTagById(id);
-  geoTagStore.removeGeoTag(geoTag.name);
-  res.json(geoTag);
+  res.json(geoTagStore.deleteGeoTag(geoTag.id));
 });
 
 module.exports = router;

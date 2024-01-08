@@ -61,12 +61,27 @@ class InMemoryGeoTagStore {
         this.#geoTagArray = this.#geoTagArray.splice(index, 1);
     }
 
+    deleteGeoTag(id) {
+        
+        const idLookedFor = id;
+        
+        for (let i = 0; i < this.#geoTagArray.length; i++) {
+            let currentId = this.#geoTagArray[i].id;
+            if (currentId == idLookedFor) {
+                return this.#geoTagArray.splice(i, 1);
+            }
+        }
+
+        return "";
+        
+    }
+
     replaceGeoTag(id, geoTag) {
 
         let isFound = 0;
         
         for (let i = 0; i < this.#geoTagArray.length; i++) {
-            if (this.#geoTagArray[i].id = id) {
+            if (this.#geoTagArray[i].id == id) {
                 this.#geoTagArray[i] = geoTag;
                 isFound = 1;
             }
@@ -80,7 +95,7 @@ class InMemoryGeoTagStore {
     }
 
     returnGeotags() {
-        if (this.#geoTagArray.length === 0) {
+        if (this.#geoTagArray.length == 0) {
             this.#geoTagArray.populate;
             let returnArray = this.#geoTagArray;
             return returnArray;
@@ -176,7 +191,8 @@ class InMemoryGeoTagStore {
         const idLookedFor = id;
         
         for (let i = 0; i < this.#geoTagArray.length; i++) {
-            if (this.#geoTagArray[i].id = idLookedFor) {
+            if (this.#geoTagArray[i].id == idLookedFor) {
+                console.log("Geotag mit id " + this.#geoTagArray[i].id + " wird für id " + idLookedFor + " zurückgegeben.")
                 return this.#geoTagArray[i];
             }
         }
